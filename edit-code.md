@@ -1,114 +1,159 @@
-## TEST UBUNU18
+# UBUNU18 Laravel
+
+## Check Version
+
+```
+php --version
+composer --version
+node.js
+npm --version
+mysql --version
+yarn --version
+```
+
+## PHP 7 Install
 
 ```
 sudo apt update
 
 sudo apt-get install php7.2 php7.2-cli php7.2-common php7.2-json php7.2-opcache php7.2-mysql php7.2-mbstring php7.2-zip php7.2-fpm  php7.2-xml
 
+php --version
+```
 
-*visual studio code
-*git
-*node.js
+## Composer Install
 
-
+```
 cd ~
 curl -sS https://getcomposer.org/installer -o composer-setup.php
 sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 composer
-
-composer global require laravel/installer
-sudo chown -R oshimamasara /home/oshimamasara/.composer
-composer global require laravel/installer
-laravel new blog
-
-vi ~/.bash_profile
-  export PATH=~/.composer/vendor/bin:$PATH
-source ~/.bash_profile
-
-laravel new blog
-cd blog
-php artisan serve
 ```
 
-
-## Check Version & Install
+## Node.js & NPM Install
 
 ```
-php --version
-
-composer --version
-
-node.js
-    sudo apt istall node
+node --version
+sudo apt istall node
 
 npm --version
-    sudo apt install npm
+sudo apt install npm
+```
 
+But upgrade because the version is old.
+
+```
+sudo apt install -y nodejs npm
+sudo npm install n -g
+sudo n stable
+sudo apt purge -y nodejs npm
+sudo apt autoremove
+exec $SHELL -l
+node --version
+npm --version
+```
+
+## MySQL Istall
+
+```
+curl -OL https://dev.mysql.com/get/mysql-apt-config_0.8.14-1_all.deb
+sudo dpkg -i mysql-apt-config*
+sudo apt update
+sudo apt install mysql-server -y
+  --> OK button
+  --> select-- Use Strong Password Encrypto(Recommented)
+sudo systemctl status mysql.service
 mysql --version
-    curl -OL https://dev.mysql.com/get/mysql-apt-config_0.8.14-1_all.deb
-    sudo dpkg -i mysql-apt-config*
-    sudo apt update
-    sudo apt install mysql-server -y
-      --> OK button
-      --> select-- Use Strong Password Encrypto(Recommented)
-    sudo systemctl status mysql.service
-    mysql -u root -p
+mysql -u root -p
+```
 
+## Create Database
+
+```
+mysql -u root -p
+show databases;
+create database todo_01;
+show databases;
+exit
+```
+
+## Yarn Install
+
+```
 yarn --version
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    sudo apt-get update && sudo apt-get install yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
 ```
 
-## Laravel App
+## Laravel Install & Start Project
 
 ```
-  laravel new todo
-  cd todo
-  php artisan --version
-  php artisan serve
+composer global require laravel/installer
+  -> permission error...
+
+sudo chown -R oshimamasara /home/oshimamasara/.composer
+
+composer global require laravel/installer
+laravel new todo
+  -> pass error....
+
+vi ~/.bash_profile
+  -> add ->   export PATH=~/.composer/vendor/bin:$PATH
+
+source ~/.bash_profile
+
+laravel new todo
+cd todo
+php artisan serve
+php artisan --version
 ```
 
 ## [Bootstrap](https://laravel.com/docs/6.x/frontend)
 
+##### command
+
 ```
-command -->
-    composer require laravel/ui --dev
-    php artisan ui bootstrap
-    npm install && npm run dev
+composer require laravel/ui --dev
+php artisan ui bootstrap
+npm install && npm run dev
+```
 
 ◎check files
-      public/css/app.css
-      public/js/app.js
-```
 
++ public/css/app.css
++ public/js/app.js
 
 ## Database Standby
 
-```
 ◎checkfile    .env
 
-  mysql -u root -p
-  show databases;
-  create database db_todo_01;
-  show databases;
+```
+mysql -u root -p
+show databases;
 
-  SHOW GLOBAL VARIABLES LIKE 'PORT';
-    使用中のポート確認
-  exit
-
-  edit .env
-  php artisan migrate
+SHOW GLOBAL VARIABLES LIKE 'PORT';
+  使用中のポート確認
+exit
 ```
 
-Database Migrate
+@edit file
+
++ .env
 
 ```
 php artisan migrate
-
-php artisan make:model Todo --migration
-    ●edit --->  database/migrations/xxxxxx_create_contacts_table
 ```
+
+## Database Migrate
+
+```
+php artisan make:model Todo --migration
+```
+
+@edit file
+
++ database/migrations/xxxxxx_create_contacts_table
 
 ```
 public function up()
@@ -117,47 +162,56 @@ public function up()
         $table->increments('id');
         $table->timestamps();
         $table->string('title');
-        $table->string('memo');        
+        $table->string('memo');
     });
 }
 ```
 
 ```
 php artisan migrate
-
-  Check してもとくにないよ
-  mysql -u root -p
-  show databases;
-  use データベース名;
-  show tables;
-  select * from テーブル名;
-  exit
 ```
 
-●edit --->   app/Todo.php
+DB Check してもとくにないよ
+
+```
+mysql -u root -p
+show databases;
+use データベース名;
+show tables;
+select * from テーブル名;
+exit
+```
+
+@edit file
+
++ app/Todo.php
 
 ```
 class Todo extends Model
 {
     protected $fillable = [
         'title',
-        'memo'      
+        'memo'
         ];
 }
 ```
 
 
 ## Controller
-  
+
 ```
 php artisan make:controller TodoController --resource
-  
-◎check CURD
-    app/Http/Controllers/TodoController.php
 ```
 
+◎check CURD
+
++ app/Http/Controllers/TodoController.php
+
 ## Route
-  ●edit ---> routes/web.php
+
+@edit file
+
++ routes/web.php
 
 ```
 Route::resource('todo', 'TodoController');
@@ -165,7 +219,10 @@ Route::resource('todo', 'TodoController');
 
 
 ## Save Data
-●edit --->  app/Http/Controllers/TodoController.php
+
+@edit file
+
++ app/Http/Controllers/TodoController.php
 
 ```
 use App\Todo;
@@ -193,8 +250,11 @@ public function create()
 ```
 
 ## Edit HTML File
-  ●edit --->  resources/views/base.blade.php
-  
+
+@edit file
+
++ resources/views/base.blade.php
+
 ```
 <!DOCTYPE html>
 <html lang="ja">
@@ -213,7 +273,9 @@ public function create()
 ```
 
 
-●edit  --->  resources/views/todos/create.blade.php
+@edit file
+
++ resources/views/todos/create.blade.php
 
 ```
 @extends('base')
@@ -234,7 +296,7 @@ public function create()
     @endif
       <form method="post" action="{{ route('todos.store') }}">
           @csrf
-          <div class="form-group">    
+          <div class="form-group">
               <label for="title">タイトル:</label>
               <input type="text" class="form-control" name="title"/>
           </div>
@@ -252,7 +314,9 @@ public function create()
 @endsection
 ```
 
-●edit --->  app/Http/Controllers/TodoController.php
+@edit file
+
++ app/Http/Controllers/TodoController.php
 
 ```
 public function index()
@@ -264,7 +328,9 @@ public function index()
 ```
 
 
-●edit  --->  resources/views/todos/index.blade.php
+@edit file
+
++ resources/views/todos/index.blade.php
 
 ```
 @extends('base')
@@ -272,7 +338,7 @@ public function index()
 @section('main')
 <div class="row">
 <div class="col-sm-12">
-    <h1 class="display-3">Todoリスト</h1>    
+    <h1 class="display-3">Todoリスト</h1>
   <table class="table table-striped">
     <thead>
         <tr>
@@ -307,14 +373,15 @@ public function index()
 @endsection
 ```
 
+@edit file
 
-●edit --->  app/Http/Controllers/TodoController.php
++ app/Http/Controllers/TodoController.php
 
 ```
 public function edit($id)
 {
     $todo = Todo::find($id);
-    return view('todos.edit', compact('todo'));        
+    return view('todos.edit', compact('todo'));
 }
 ```
 
@@ -334,7 +401,10 @@ public function update(Request $request, $id)
 }
 ```
 
-●edit  --->  resources/views/todos/edit.blade.php
+@edit file
+
++ resources/views/todos/edit.blade.php
+
 ```
 @extends('base')
 @section('main')
@@ -372,7 +442,9 @@ public function update(Request $request, $id)
 ```
 
 
-●edit --->  app/Http/Controllers/TodoController.php
+@edit file
+
++ app/Http/Controllers/TodoController.php
 
 ```
 public function destroy($id)
@@ -384,13 +456,15 @@ public function destroy($id)
 }
 ```
 
-●edit   --->  resources/views/todos/index.blade.php
+@edit file
+
++ resources/views/todos/index.blade.php
 
 ```
 <div class="col-sm-12">
   @if(session()->get('success'))
     <div class="alert alert-success">
-      {{ session()->get('success') }}  
+      {{ session()->get('success') }}
     </div>
   @endif
 </div>
@@ -398,17 +472,21 @@ public function destroy($id)
 <hr>
 <div>
  <a style="margin: 15px;" href="{{ route('todos.create')}}" class="btn btn-primary">Todo追加</a>
-</div>  
+</div>
 <hr>
 ```
 
-●edit   --->  resources/views/todos/index.blade.php
+@edit file
+
++ resources/views/todos/index.blade.php
 
 ```
 <a href="{{route('todos.show', $todo->id}}">{{$todo-> title}}</a>
 ```
 
-●top page list sort   edit --->  app/Http/Controllers/TodoController.php
+@top page list sort   edit file
+
++ app/Http/Controllers/TodoController.php
 
 ```
 $todos = Todo::orderBy('id','desc')->get();
