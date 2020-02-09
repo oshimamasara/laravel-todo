@@ -1,43 +1,50 @@
 ## TEST UBUNU18
-  sudo apt update
 
-  sudo apt-get install php7.2 php7.2-cli php7.2-common php7.2-json php7.2-opcache php7.2-mysql php7.2-mbstring php7.2-zip php7.2-fpm  php7.2-xml
+```
+sudo apt update
 
-  visual studio code
-  git
-  node.js
+sudo apt-get install php7.2 php7.2-cli php7.2-common php7.2-json php7.2-opcache php7.2-mysql php7.2-mbstring php7.2-zip php7.2-fpm  php7.2-xml
 
 
-  cd ~
-  curl -sS https://getcomposer.org/installer -o composer-setup.php
-  sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-  composer
-
-  composer global require laravel/installer
-  sudo chown -R oshimamasara /home/oshimamasara/.composer
-  composer global require laravel/installer
-  laravel new blog
-  vi ~/.bash_profile
-    export PATH=~/.composer/vendor/bin:$PATH
-  source ~/.bash_profile
-
-  laravel new blog
-  cd blog
-  php artisan serve
+*visual studio code
+*git
+*node.js
 
 
-# Check Version
-  php --version
+cd ~
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+composer
 
-  composer --version
+composer global require laravel/installer
+sudo chown -R oshimamasara /home/oshimamasara/.composer
+composer global require laravel/installer
+laravel new blog
 
-  node.js
+vi ~/.bash_profile
+  export PATH=~/.composer/vendor/bin:$PATH
+source ~/.bash_profile
+
+laravel new blog
+cd blog
+php artisan serve
+```
+
+
+## Check Version & Install
+
+```
+php --version
+
+composer --version
+
+node.js
     sudo apt istall node
 
-  npm --version
+npm --version
     sudo apt install npm
 
-  mysql --version
+mysql --version
     curl -OL https://dev.mysql.com/get/mysql-apt-config_0.8.14-1_all.deb
     sudo dpkg -i mysql-apt-config*
     sudo apt update
@@ -47,27 +54,39 @@
     sudo systemctl status mysql.service
     mysql -u root -p
 
+yarn --version
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    sudo apt-get update && sudo apt-get install yarn
+```
 
-# Laravel App
+## Laravel App
+
+```
   laravel new todo
   cd todo
   php artisan --version
   php artisan serve
+```
 
+## [Bootstrap](https://laravel.com/docs/6.x/frontend)
 
-# [Bootstrap](https://laravel.com/docs/6.x/frontend)
-  command -->
+```
+command -->
     composer require laravel/ui --dev
     php artisan ui bootstrap
     npm install && npm run dev
 
-  ◎check files
+◎check files
       public/css/app.css
       public/js/app.js
+```
 
 
-# Database Stanby
-  checkfile    .env
+## Database Standby
+
+```
+◎checkfile    .env
 
   mysql -u root -p
   show databases;
@@ -80,15 +99,18 @@
 
   edit .env
   php artisan migrate
+```
 
+Database Migrate
 
-# Database Migrate
-  php artisan migrate
+```
+php artisan migrate
 
-  php artisan make:model Todo --migration
+php artisan make:model Todo --migration
     ●edit --->  database/migrations/xxxxxx_create_contacts_table
+```
 
-    ```
+```
 public function up()
 {
     Schema::create('todos', function (Blueprint $table) {
@@ -98,10 +120,10 @@ public function up()
         $table->string('memo');        
     });
 }
-    ```
+```
 
-
-  php artisan migrate
+```
+php artisan migrate
 
   Check してもとくにないよ
   mysql -u root -p
@@ -110,9 +132,11 @@ public function up()
   show tables;
   select * from テーブル名;
   exit
+```
 
-  ●edit --->   app/Todo.php
-  ```
+●edit --->   app/Todo.php
+
+```
 class Todo extends Model
 {
     protected $fillable = [
@@ -120,23 +144,30 @@ class Todo extends Model
         'memo'      
         ];
 }
-  ```
+```
 
 
-# Controller
-  php artisan make:controller TodoController --resource
-  check CURD
+## Controller
+  
+```
+php artisan make:controller TodoController --resource
+  
+◎check CURD
     app/Http/Controllers/TodoController.php
+```
 
-# Route
+## Route
   ●edit ---> routes/web.php
-  ```
-Route::resource('todo', 'TodoController');
-  ```
 
-# Save Data
-  ●edit --->  app/Http/Controllers/TodoController.php
-  ```
+```
+Route::resource('todo', 'TodoController');
+```
+
+
+## Save Data
+●edit --->  app/Http/Controllers/TodoController.php
+
+```
 use App\Todo;
 
 
@@ -159,11 +190,12 @@ public function create()
 {
     return view('todos.create');
 }
-  ```
+```
 
-# Edit HTML File
+## Edit HTML File
   ●edit --->  resources/views/base.blade.php
-  ```
+  
+```
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -178,10 +210,12 @@ public function create()
     <script src="{{ asset('js/app.js') }}" type="text/js"></script>
   </body>
 </html>
-  ```
+```
 
-  ●edit  --->  resources/views/todos/create.blade.php
-  ```
+
+●edit  --->  resources/views/todos/create.blade.php
+
+```
 @extends('base')
 
 @section('main')
@@ -216,9 +250,10 @@ public function create()
 </div>
 </div>
 @endsection
-  ```
+```
 
 ●edit --->  app/Http/Controllers/TodoController.php
+
 ```
 public function index()
 {
@@ -230,6 +265,7 @@ public function index()
 
 
 ●edit  --->  resources/views/todos/index.blade.php
+
 ```
 @extends('base')
 
@@ -273,6 +309,7 @@ public function index()
 
 
 ●edit --->  app/Http/Controllers/TodoController.php
+
 ```
 public function edit($id)
 {
@@ -336,6 +373,7 @@ public function update(Request $request, $id)
 
 
 ●edit --->  app/Http/Controllers/TodoController.php
+
 ```
 public function destroy($id)
 {
@@ -347,6 +385,7 @@ public function destroy($id)
 ```
 
 ●edit   --->  resources/views/todos/index.blade.php
+
 ```
 <div class="col-sm-12">
   @if(session()->get('success'))
@@ -364,11 +403,13 @@ public function destroy($id)
 ```
 
 ●edit   --->  resources/views/todos/index.blade.php
-  ```
+
+```
 <a href="{{route('todos.show', $todo->id}}">{{$todo-> title}}</a>
-  ```
+```
 
 ●top page list sort   edit --->  app/Http/Controllers/TodoController.php
-  ```
+
+```
 $todos = Todo::orderBy('id','desc')->get();
-  ```
+```
