@@ -34,7 +34,7 @@ composer
 
 ```
 node --version
-sudo apt istall node
+sudo apt istall nodejs
 
 npm --version
 sudo apt install npm
@@ -392,7 +392,7 @@ public function update(Request $request, $id)
         'title'=>'required'
     ]);
 
-    $todo = Contact::find($id);
+    $todo = Todo::find($id);
     $todo->title =  $request->get('title');
     $todo->memo = $request->get('memo');
     $todo->save();
@@ -481,7 +481,7 @@ public function destroy($id)
 + resources/views/todos/index.blade.php
 
 ```
-<a href="{{route('todos.show', $todo->id}}">{{$todo-> title}}</a>
+<a href="{{route('todos.show', $todo->id)}}">{{$todo-> title}}</a>
 ```
 
 @top page list sort   edit file
