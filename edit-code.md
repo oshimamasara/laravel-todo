@@ -214,7 +214,7 @@ php artisan make:controller TodoController --resource
 + routes/web.php
 
 ```
-Route::resource('todo', 'TodoController');
+Route::resource('todos', 'TodoController');
 ```
 
 
