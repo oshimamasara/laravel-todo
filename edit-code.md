@@ -1,4 +1,4 @@
-# UBUNU20 Laravel
+# UBUNU 20 Laravel 8
 
 ## Check Version
 
