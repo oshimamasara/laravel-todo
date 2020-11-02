@@ -16,7 +16,7 @@ yarn --version
 ```
 sudo apt update
 
-sudo apt-get install php7.2 php7.2-cli php7.2-common php7.2-json php7.2-opcache php7.2-mysql php7.2-mbstring php7.2-zip php7.2-fpm  php7.2-xml
+sudo apt-get install php7.4 php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-mysql php7.4-mbstring php7.4-zip php7.4-fpm  php7.4-xml
 
 php --version
 ```
@@ -56,21 +56,14 @@ npm --version
 ## MySQL Istall
 
 ```
-curl -OL https://dev.mysql.com/get/mysql-apt-config_0.8.14-1_all.deb
-sudo dpkg -i mysql-apt-config*
-sudo apt update
-sudo apt install mysql-server -y
-  --> OK button
-  --> select-- Use Strong Password Encrypto(Recommented)
-sudo systemctl status mysql.service
-mysql --version
-mysql -u root -p
+sudo apt install mysql-server
+sudo mysql_secure_installation
 ```
 
 ## Create Database
 
 ```
-mysql -u root -p
+sudo mysql -u root
 show databases;
 create database todo_01;
 show databases;
@@ -89,24 +82,10 @@ sudo apt-get update && sudo apt-get install yarn
 ## Laravel Install & Start Project
 
 ```
-composer global require laravel/installer
-  -> permission error...
-
-sudo chown -R oshimamasara /home/oshimamasara/.composer
-
-composer global require laravel/installer
-laravel new todo
-  -> pass error....
-
-vi ~/.bash_profile
-  -> add ->   export PATH=~/.composer/vendor/bin:$PATH
-
-source ~/.bash_profile
-
-laravel new todo
-cd todo
-php artisan serve
+composer create-project laravel/laravel プロジェクト名
+cd プロジェクト名
 php artisan --version
+php artisan serve
 ```
 
 ## [Bootstrap](https://laravel.com/docs/6.x/frontend)
